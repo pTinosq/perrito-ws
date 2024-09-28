@@ -18,6 +18,7 @@ const ServerPage = (props: ServerPageProps) => {
   const [server, setServer] = useState<PerritoServerType | undefined>(undefined);
 
   const [showCopyConfirmation, setShowCopyConfirmation] = useState(false);
+  const [showRestartConfirmation, setShowRestartConfirmation] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +41,14 @@ const ServerPage = (props: ServerPageProps) => {
     }, 1250); // Hide after 1 second
   };
 
+  const handleRestartClick = () => {
+    window.servers.restartServer(server.id);
+    setShowRestartConfirmation(true);
+    setTimeout(() => {
+      setShowRestartConfirmation(false);
+    }, 1250); // Hide after 1 second
+  };
+
   return (
     <>
       <div className="server-page__header">
@@ -50,8 +59,15 @@ const ServerPage = (props: ServerPageProps) => {
           </h2>
         </div>
         <div className="server-page__header-icon-button-container">
-          <button title="Restart server" className="server-page__header-icon-button">
+          <button
+            title="Restart server"
+            className="server-page__header-icon-button"
+            onClick={handleRestartClick}>
             <img src={RefreshIcon} />
+            <div
+              className={`server-page__header-icon-button-confirmation ${showRestartConfirmation ? " show" : ""}`}>
+              <span>Restarted!</span>
+            </div>
           </button>
           <button
             title="Copy server link"

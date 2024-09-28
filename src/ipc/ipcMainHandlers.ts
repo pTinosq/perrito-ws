@@ -12,6 +12,7 @@ import DaemonProcess from 'src/backend/DaemonProcess';
 import {
   ipcDisconnectClient,
   ipcGetServers,
+  ipcRestartServer,
   ipcSendMessageToClient,
   ipcStartServer,
   ipcStopServer,
@@ -122,7 +123,14 @@ export function setupIpcMainHandlers(perritoDaemonProcess: DaemonProcess | null)
     } as ipcGetServers);
   });
 
-  ipcMain.handle('send-message-to-client', async (_, serverId, clientId, message) => {
+  ipcMain.handle("restart-server", async (_, id) => {
+    return perritoDaemonProcess?.sendMessage({
+      action: "restart",
+      id,
+    } as ipcRestartServer);
+  });
+
+  ipcMain.handle("send-message-to-client", async (_, serverId, clientId, message) => {
     return perritoDaemonProcess?.sendMessage({
       action: 'send-message',
       serverId,

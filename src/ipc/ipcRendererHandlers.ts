@@ -34,6 +34,7 @@ export interface globalWindow {
     startServer: (id: string, name: string, host: string, port: string) => Promise<DaemonResponse>;
     stopServer: (id: string) => Promise<void>;
     getServers: () => Promise<unknown>;
+    restartServer: (id: string) => Promise<DaemonResponse>;
   };
   clients: {
     sendMessageToClient: (serverId: string, clientId: string, message: string) => Promise<void>;
@@ -81,9 +82,10 @@ export function setupIpcRendererHandlers() {
 
   contextBridge.exposeInMainWorld('servers', {
     startServer: (id: string, name: string, host: string, port: string) =>
-      ipcRenderer.invoke('start-server', id, name, host, port),
-    stopServer: (id: string) => ipcRenderer.invoke('stop-server', id),
-    getServers: () => ipcRenderer.invoke('get-servers'),
+      ipcRenderer.invoke("start-server", id, name, host, port),
+    stopServer: (id: string) => ipcRenderer.invoke("stop-server", id),
+    getServers: () => ipcRenderer.invoke("get-servers"),
+    restartServer: (id: string) => ipcRenderer.invoke("restart-server", id),
   });
 
   contextBridge.exposeInMainWorld('clients', {
