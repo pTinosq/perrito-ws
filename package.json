@@ -9,11 +9,12 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "dotenv -- electron-forge publish",
-    "lint": "eslint ./src",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,css,json,md}'",
-    "test": "npm run lint && wdio run ./wdio.conf.ts"
+    "test": "npm run lint && wdio run ./wdio.conf.ts",
+    "format": "biome format --write ./src",
+    "lint": "biome lint --write ./src"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.2",
     "@electron-forge/cli": "^7.3.1",
     "@electron-forge/maker-deb": "^7.3.1",
     "@electron-forge/maker-rpm": "^7.3.1",
@@ -43,8 +44,8 @@
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
-    "prettier": "^3.3.1",
     "globals": "^15.4.0",
+    "prettier": "^3.3.1",
     "prettier-eslint-cli": "^8.0.1",
     "sass": "^1.77.4",
     "ts-node": "^10.9.2",

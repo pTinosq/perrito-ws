@@ -6,7 +6,7 @@ export type ipcActionMessage =
   | ipcDisconnectClient;
 
 export interface ipcStartServer {
-  action: "start";
+  action: 'start';
   id: string;
   name: string;
   host: string;
@@ -14,23 +14,23 @@ export interface ipcStartServer {
 }
 
 export interface ipcStopServer {
-  action: "stop";
+  action: 'stop';
   id: string;
 }
 
 export interface ipcGetServers {
-  action: "get-servers";
+  action: 'get-servers';
 }
 
 export interface ipcSendMessageToClient {
-  action: "send-message";
+  action: 'send-message';
   serverId: string;
   clientId: string;
   message: string;
 }
 
 export interface ipcDisconnectClient {
-  action: "disconnect-client";
+  action: 'disconnect-client';
   serverId: string;
   clientId: string;
 }
